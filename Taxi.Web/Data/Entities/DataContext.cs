@@ -14,5 +14,8 @@ namespace Taxi.Web.Data.Entities
         }
 
         public DbSet<TaxiEntity> Taxis { get; set; }
+        public DbSet<TripEntity> Trips { get; set; }
+        public DbSet<TripDetailEntity> TripsDetails { get; set; }
+
     }
 }
