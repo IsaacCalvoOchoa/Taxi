@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/6e4ea6d4-461a-40aa-912e-18a70b746a23/resourcegroups/TaxiWeb20200425232411ResourceGroup/providers/Microsoft.Sql/servers/taxiwebdbserver/databases/Taxi.Web_db",
+      "type": "mssql.azure",
+      "connectionId": "DefaultConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
