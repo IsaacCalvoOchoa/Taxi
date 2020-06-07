@@ -192,6 +192,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
       <Version>18.1.0.46</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRating">
+      <Version>18.1.0.46</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
     <PackageReference Include="Xamarin.Forms.Maps">
