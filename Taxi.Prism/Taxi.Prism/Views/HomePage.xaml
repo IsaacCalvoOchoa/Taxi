@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:i18n="clr-namespace:Taxi.Prism.Helpers"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              prism:ViewModelLocator.AutowireViewModel="True"
@@ -15,7 +16,7 @@
                   MapType="Street"/>
         <StackLayout Padding="5">
             <Button Margin="10,0"
-                    Text="Start Trip"/>
+                    Text="{i18n:Translate StartTrip}"/>
         </StackLayout>
     </StackLayout>
 

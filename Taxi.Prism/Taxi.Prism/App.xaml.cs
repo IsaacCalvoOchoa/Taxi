@@ -23,7 +23,7 @@ namespace Taxi.Prism
 
         protected override async void OnInitialized()
         {
-            SyncfusionLicenseProvider.RegisterLicense("MjUwNzEyQDMxMzgyZTMxMmUzMFcyYUxtMUxETjdCNnVNWFlIVDdUblRoL3hVU3dMNGdvM3JuMXdyckNmT0U9");
+            SyncfusionLicenseProvider.RegisterLicense("Mjc3NzA1QDMxMzgyZTMxMmUzMEYyRHFxcVorTDMvSDZvNUFOMHF1U1RNenAzSWdJUkxvNlBYZ29DMmE4bEU9");
 
             InitializeComponent();
 
