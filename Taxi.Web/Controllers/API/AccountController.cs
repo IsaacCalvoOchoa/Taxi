@@ -22,16 +22,20 @@ namespace Taxi.Web.Controllers.API
         private readonly IMailHelper _mailHelper;
         private readonly IImageHelper _imageHelper;
 
+        public IConverterHelper _converterHelper { get; }
+
         public AccountController(
             DataContext dataContext,
             IUserHelper userHelper,
             IMailHelper mailHelper,
-            IImageHelper imageHelper)
+            IImageHelper imageHelper,
+            IConverterHelper iconverterHelper)
         {
             _dataContext = dataContext;
             _userHelper = userHelper;
             _mailHelper = mailHelper;
             _imageHelper = imageHelper;
+            _converterHelper = iconverterHelper;
         }
 
         [HttpPost]
@@ -183,6 +187,72 @@ namespace Taxi.Web.Controllers.API
 
             UserEntity updatedUser = await _userHelper.GetUserAsync(request.Email);
             return Ok(updatedUser);
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(request.CultureInfo);
+            Resource.Culture = cultureInfo;
+
+            UserEntity user = await _userHelper.GetUserAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = Resource.UserNotFoundError
+                });
+            }
+
+            IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return Ok(new Response
+            {
+                IsSuccess = true,
+                Message = Resource.ChangePasswordSuccess
+            });
+        }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        public async Task<IActionResult> GetUserByEmail([FromBody] EmailRequest emailRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            CultureInfo cultureInfo = new CultureInfo(emailRequest.CultureInfo);
+            Resource.Culture = cultureInfo;
+
+            UserEntity userEntity = await _userHelper.GetUserAsync(emailRequest.Email);
+            if (userEntity == null)
+            {
+                return NotFound(Resource.UserNotFoundError);
+            }
+
+            return Ok(_converterHelper.ToUserResponse(userEntity));
         }
 
     }
